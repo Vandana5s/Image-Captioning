@@ -6,6 +6,8 @@ from pickle import load
 import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
+import tkinter as tk
+from tkinter import filedialog
 
 # Function to extract features from an image
 def extract_features(filename, model):
@@ -47,22 +49,32 @@ def word_for_id(integer, tokenizer):
             return word
     return None
 
-# Default image path
-default_path = r'C:\Users\shuai\OneDrive\سطح المكتب\nitk\3rd year\ML\Project\Caption Generator\Flicker8k_Dataset\667626_18933d713e.jpg'
+# # Default image path
+# default_path = r'C:\Users\shuai\OneDrive\سطح المكتب\nitk\3rd year\ML\Project\Caption Generator\Flicker8k_Dataset\667626_18933d713e.jpg'
 
-# Ask user for input
-user_input = input("Enter the path of the image you want to predict (or type 'default' to use the default image): ")
+# # Ask user for input
+# user_input = input("Enter the path of the image you want to predict (or type 'default' to use the default image): ")
 
-# Use the default path if the user types 'default'
-if user_input.lower() == 'default':
-    img_path = default_path
-else:
-    img_path = user_input
+# # Use the default path if the user types 'default'
+# if user_input.lower() == 'default':
+#     img_path = default_path
+# else:
+#     img_path = user_input
+
+# Open file explorer and ask user to select an image
+root = tk.Tk()
+root.withdraw()  # Hide the main window
+img_path = filedialog.askopenfilename(title="Select an image", filetypes=[("Image files", "*.jpg;*.jpeg;*.png")])
+
+# Check if a file was selected
+if not img_path:
+    print("No image selected!")
+    exit()
 
 # Model and tokenizer loading
 max_length = 32
 tokenizer = load(open("tokenizer.p","rb"))
-model = load_model('models/model_9.h5')
+model = load_model('models(old)/model_9.h5')
 xception_model = Xception(include_top=False, pooling="avg")
 
 # Feature extraction and prediction
