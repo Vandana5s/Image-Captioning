@@ -82,7 +82,18 @@ photo = extract_features(img_path, xception_model)
 if photo is not None:
     img = Image.open(img_path)
     description = generate_desc(model, tokenizer, photo, max_length)
-    print("\n\n")
-    print(description)
+    
+    # Remove 'start' and 'end' tokens from the description
+    description = description.replace('start', '').replace('end', '').strip()
+    
+    # Display the image
     plt.imshow(img)
+    
+    # Display the caption below the image with increased font size and bold weight
+    plt.text(0, img.size[1] + 40, description, color='black', backgroundcolor='white', wrap=True, fontsize=14, weight='bold')
+    
+    # Remove axis details
+    plt.axis('off')
+    
+    # Show the plot
     plt.show()
