@@ -89,7 +89,7 @@ if photo is not None:
     # Display the image
     plt.imshow(img)
     
-    # Display the caption below the image with increased font size and bold weight
+    # Display the caption below the image 
     plt.text(0, img.size[1] + 40, description, color='black', backgroundcolor='white', wrap=True, fontsize=14, weight='bold')
     
     # Remove axis details
